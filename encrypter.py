@@ -1,11 +1,20 @@
 import os
+import sys
 import pyaes
 
 ## abrir o arquivo a ser criptografado
-file_name = "teste.txt"
-file = open(file_name, "rb")
-file_data = file.read()
-file.close()
+if len(sys.argv) != 2:
+    print("Uso: python encrypt.py <arquivo>")
+    sys.exit(1)
+
+file_name = sys.argv[1]
+
+if not os.path.isfile(file_name):
+    print(f"Erro: O arquivo '{file_name}' não foi encontrado.")
+    sys.exit(1)
+
+with open(file_name, "rb") as file:
+    file_data = file.read()
 
 ## remover o arquivo
 os.remove(file_name)
